@@ -1,1 +1,193 @@
+1)What is the purpose of the ViewHolder pattern in Android? 
+ViewHolder pattern enables you to reach every files in recycler view. You can reach by calling findViewById() method
+
+
+2) How do you handle exceptions in kotlin ? Provide an example of a try-catch block for handling a potential exception in your code.
+We can handle exceptions with try and catch blocks. 
+try {
+        throw Exception("My Exception")
+    }catch (e : Exception){
+        e.printStackTrace()   
+    }
+
+
+3)What are Decorative Patterns , and why are they useful ? Demonstrate how you can use Decorative Patterns in Kotlin to add functionality to existing classes.
+
+Decorative we use for adding new functionality to classes. 
+package creational.decorator
+
+
+interface IHouse{
+    fun buildHouse()
+}
+
+class Villa : IHouse{
+    override fun buildHouse() {
+        
+    }
+
+}
+class Cottage : IHouse{
+    override fun buildHouse() {
+    }
+
+}
+
+abstract class HouseDecorator (val iHouse: IHouse){
+    open fun superDecorator(){
+        iHouse.buildHouse()
+    }
+}
+class VillaHouse() : HouseDecorator(Villa()){
+    override fun superDecorator() {
+        super.superDecorator()
+        color()
+    }
+
+    fun color(){
+
+    }
+}
+class CottageHouse() : HouseDecorator(Villa()){
+    override fun superDecorator() {
+        super.superDecorator()
+        color()
+    }
+
+    fun color(){
+
+    }
+}
+
+4)Prepare algorithm to find and eliminate duplicate elements in array
+
+fun eliminateDuplicates(arr: IntArray): IntArray {
+    val occurrenceMap = mutableMapOf<Int, Int>()
+    for (element in arr) {
+        occurrenceMap[element] = occurrenceMap.getOrDefault(element, 0) + 1
+    }
+    val result = mutableListOf<Int>()
+    for (element in arr) {
+        if (occurrenceMap[element] == 1) {
+            result.add(element)
+        }
+    }
+    return result.toIntArray()
+}
+
+5)What is the purpose of the “let” keyword in Kotlin , give example.
+Let block runs when that variable is not null. It is used for providing null safety check.
+
+6)Which of the principle (SOLID) is violated in example ? : 
+Interface segregation principle is violated because overrided not usable function from interface.
+
+7) How can we declare static variables in Kotlin ?
+Inside “companion object” block
+
+8) What is Constructors ? How many types of constructors do you know in Kotlin?
+Constructors is called when you create an object of class. There are 2 types of constructors.
+Primary constructor – concise way to initialize a class. Secondary constructor – allows you to put additional initializing logic.
+9)Explain Usage of Factory Patterns in Kotlin , why do we need it ?
+
+For writing fresh codes. When we don’t use factory patterns, code will be not in usable position after a part of time.
+
+10 ) Implement a HouseFactory class that provides methods for creating different types of houses (Cottage , Villa ,Mansion). Each house type should have its own specific features.
+enum class FactoryType {
+    Cottage , Mansion, Villa
+}
+
+interface AbstractFactory {
+    fun buildHouse()
+}
+
+class AbstractFactoryProvider() {
+    fun getFactory(factory: FactoryType): AbstractFactory {
+        return when (factory) {
+            FactoryType.Mansion -> {
+                 MansionFactory()
+            }
+
+            FactoryType.Villa -> {
+                 VillaFactory()
+            }
+            FactoryType.Cottage->{
+                CottageFactory()
+            }
+        }
+    }
+}
+
+class MansionFactory() : AbstractFactory {
+    override fun buildHouse() {
+    }
+}
+class CottageFactory() : AbstractFactory {
+    override fun buildHouse() {
+    }
+
+}
+
+class VillaFactory() : AbstractFactory {
+    override fun buildHouse() {
+        
+    }
+
+}
+
+11) What is LiveData ?
+Live Data - LiveData is a wrapper that can be used with any data, including objects that implement Collections , such as List . A LiveData object is usually stored within a ViewModel object and is accessed via a getter method.
+
+12) Explain MVP structure
+MVP - Model–view–presenter (MVP) is a derivation of the model–view–controller (MVC) architectural pattern, and is used mostly for building user interfaces. In MVP, the presenter assumes the functionality of the "middle-man". In MVP, all presentation logic is pushed to the presenter.
+
+13) Find maximum product of two integers in an array.
+fun maximumProduct(array : IntArray){
+    var product = array[0] * array[1]
+    for (i in array.indices){
+        for (j in i+1 until array.size){
+            if(array[i] * array[j] > product){
+                product = array[i] * array[j]
+            }
+        }
+    }
+    println(product)
+}
+
+
+14) What is Singleton pattern? (Code example with short description)
+Singleton pattern – Class have only one object.
+object Singleton   {
+	
+}
+
+
+15)Create a House class with attributes like the number of rooms,roof,type and color. Then , design a HouseBuilder class to construct House objects . Provide the necessary methods in the builder to set the attributes of the House class
+
+class House (room : Int, roof : Int, type : String, color : String){
+    class Builder{
+        private var room = 0
+        private var roof = 0
+        private var type = ""
+        private var color = ""
+        fun enterRoom(room : Int) : Builder{
+            this.room = room
+            return this
+        }
+        fun enterRoof (roof : Int) : Builder{
+            this.roof = roof
+            return this
+        }
+        fun enterType (type : String): Builder{
+            this.type = type
+            return this
+        }
+        fun enterColor (color : String) : Builder{
+            this.color = color
+            return this
+        }
+        fun build():House{
+            return House(room, roof, type, color)
+        }
+    }
+}
 
